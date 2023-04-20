@@ -8,7 +8,7 @@
 import SwiftUI
 
 //MARK: Movies Reults Model
-struct MovieResults: Codable {
+struct MovieResults: Codable, Hashable {
     let results: [MoviesModel]
     
     enum CodingKeys: String, CodingKey {
@@ -17,7 +17,7 @@ struct MovieResults: Codable {
 }
 
 // MARK: Movies Model
-struct MoviesModel: Codable {
+struct MoviesModel: Codable, Hashable {
     let id: Int?
     let originalLanguage: String?
     let originalTitle : String?
