@@ -12,7 +12,7 @@ class MoviesViewModel: ObservableObject {
     
     @Published var moviesResult: [MoviesModel] = []
     
-    let apiKey = "place your api key here"
+    let apiKey = "34c902e6393dc8d970be5340928602a7"
     let imageUrlPrefix = "https://image.tmdb.org/t/p/w500"
     
     
