@@ -33,7 +33,13 @@ struct MoviesCardView: View {
                             .cornerRadius(10)
                             .overlay(alignment: .topTrailing) {
                                 Button {
-                                    coreDataViewModel.addFavouriteMovie(title: movie.originalTitle ?? "", voteAverage: movie.voteAverage ?? 0.0)
+                                    Task {
+                                        do {
+                                            try await addToFavourites()
+                                        } catch {
+                                            print("Error Adding to favourites.")
+                                        }
+                                    }
                                 } label: {
                                     Image(systemName: "star.fill")
                                         .font(.title2)
@@ -62,6 +68,30 @@ struct MoviesCardView: View {
             }
             .frame(width: 200, height: 270)
         }
+    }
+    
+    //MARK: Adding data to Core Data and Image to FileManager
+    func addToFavourites() async throws {
+        coreDataViewModel.addFavouriteMovie(title: movie.originalTitle ?? "", voteAverage: movie.voteAverage ?? 0.0)
+        
+        let uiImage = try await loadImage()
+        
+        LocalFileManager.instance.saveImage(image: uiImage, name: movie.title ?? "No title")
+        
+    }
+    
+    //MARK: Function to load Image asynchronusly
+    func loadImage() async throws -> UIImage {
+        guard let url = URL(string: viewModel.imageUrlPrefix + (movie.posterPath ?? "")) else {
+            throw URLError(.badURL)
+        }
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
+        
+        guard let image = UIImage(data: data) else {
+            throw URLError(.badServerResponse)
+        }
+        return image
     }
 }
 

@@ -36,7 +36,7 @@ struct FavouriteMoviesView: View {
                         List {
                             
                             ForEach(coreDataViewModel.savedMovieEntities) { entity in
-                                favouriteListRow(entity: entity)
+                                FavouriteListRow(entity: entity)
                             }
                             .onDelete { indexSet in
                                 coreDataViewModel.deleteMovie(indexSet: indexSet)
@@ -55,31 +55,7 @@ struct FavouriteMoviesView: View {
         }
     }
     
-    @ViewBuilder
-    func favouriteListRow(entity: FavouriteMoviesEntity) -> some View {
-        HStack {
-            RoundedRectangle(cornerRadius: 10)
-                .fill(.white)
-                .frame(width: 120, height: 120)
-            VStack(alignment: .leading) {
-                Text(entity.title ?? "")
-                    .font(.title2)
-                    .foregroundColor(.black)
-                    .bold()
-                HStack {
-                    Image(systemName: "hand.thumbsup.circle")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(.yellow)
-                    
-                    Text(String(format: "%.1f", entity.voteAverage))
-                        .foregroundColor(.gray)
-                }
-            }
-        }
-    }
 }
-
 
 
 struct FavouriteMoviesView_Previews: PreviewProvider {
