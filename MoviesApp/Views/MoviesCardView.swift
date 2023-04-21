@@ -10,8 +10,9 @@ import SwiftUI
 struct MoviesCardView: View {
     
     @EnvironmentObject var viewModel: MoviesViewModel
-    
+    @EnvironmentObject var coreDataViewModel: CoreDataViewModel
     let movie: MoviesModel
+    @State private var isTapped: Bool = false
     
     var body: some View {
         ZStack {
@@ -30,6 +31,16 @@ struct MoviesCardView: View {
                             .scaledToFill()
                             .frame(width: 200, height: 200)
                             .cornerRadius(10)
+                            .overlay(alignment: .topTrailing) {
+                                Button {
+                                    coreDataViewModel.addFavouriteMovie(title: movie.originalTitle ?? "", voteAverage: movie.voteAverage ?? 0.0)
+                                } label: {
+                                    Image(systemName: "star.fill")
+                                        .font(.title2)
+                                        .foregroundColor(isTapped ? .yellow : .white)
+                                }
+                                
+                            }
                         
                     case .failure( _):
                         Image(systemName: "questionmark")
@@ -58,6 +69,7 @@ struct MoviesCardView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
             .environmentObject(MoviesViewModel())
+            .environmentObject(CoreDataViewModel())
     }
 }
 

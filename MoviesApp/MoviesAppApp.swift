@@ -11,11 +11,13 @@ import SwiftUI
 struct MoviesAppApp: App {
     
     @StateObject private var viewModel = MoviesViewModel()
+    @StateObject private var coreDataviewModel = CoreDataViewModel()
     
     var body: some Scene {
         WindowGroup {
             HomeView()
                 .environmentObject(viewModel)
+                .environmentObject(coreDataviewModel)
         }
     }
 }

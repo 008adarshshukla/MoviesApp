@@ -26,7 +26,7 @@ struct MoviesModel: Codable, Hashable {
     let releaseDate: String?
     let title: String?
     let voteAverage: Double?
-
+    
     enum CodingKeys: String, CodingKey {
         case id
         case originalLanguage = "original_language"

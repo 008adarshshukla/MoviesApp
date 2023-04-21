@@ -20,7 +20,7 @@ struct HomeView: View {
                 VStack(alignment: .leading) {
                     CarouselView()
                     
-                    Text("Streaming Now")
+                    Text("Playing Now")
                         .foregroundColor(.white)
                         .font(.title)
                         .bold()
@@ -68,12 +68,22 @@ struct HomeView: View {
     //MARK: Trailing Navigation Bar Item
     @ViewBuilder
     func trailingNavigationBarItem() -> some View {
-        Circle()
-            .fill(AngularGradient(colors: [Color.red, Color.blue], center: .bottomTrailing, angle: .degrees(45)))
-            .frame(width: 50, height: 50)
-            .overlay(alignment: .center) {
-                Image(systemName: "person.fill")
+        HStack(spacing: 10) {
+            NavigationLink {
+                FavouriteMoviesView()
+            } label: {
+                Image(systemName: "heart.fill")
+                    .font(.title)
+                    .foregroundColor(.red)
             }
+            
+            Circle()
+                .fill(AngularGradient(colors: [Color.red, Color.blue], center: .bottomTrailing, angle: .degrees(45)))
+                .frame(width: 45, height: 45)
+                .overlay(alignment: .center) {
+                    Image(systemName: "person.fill")
+                }
+        }
     }
     
     

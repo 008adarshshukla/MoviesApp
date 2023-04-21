@@ -48,6 +48,3 @@ struct CarouselView_Previews: PreviewProvider {
     }
 }
 
-/*
- AsyncImage(url: URL(string: "\(viewModel.imageUrlPrefix) + \(movies.posterPath ?? "")"))
- */
